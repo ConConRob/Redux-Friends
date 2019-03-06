@@ -33,16 +33,19 @@ export default class FriendForm extends React.Component {
           type="text"
           onChange={this.handleInputChange}
           value={this.state.text}
+          placeholder="Name"
         />
         <input
           type="number"
           onChange={this.handleInputChange}
           value={this.state.number}
+          placeholder="Age"
         />
         <input
           type="email"
           onChange={this.handleInputChange}
           value={this.state.email}
+          placeholder="email"
         />
         <button type="submit">ADD</button>
       </StyledFriendForm>
