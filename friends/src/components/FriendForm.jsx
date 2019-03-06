@@ -16,7 +16,13 @@ export default class FriendForm extends React.Component {
   };
   submit = event => {
     event.preventDefault();
-    this.props.submitFunction(this.state.currentInputValue);
+    const person = {
+      name: this.state.text,
+      age: this.state.number,
+      email: this.state.email
+    };
+    console.log(person);
+    this.props.submitFunction(person);
     this.setState({ text: "", number: "", email: "" });
   };
   render() {
@@ -26,12 +32,12 @@ export default class FriendForm extends React.Component {
         <input
           type="text"
           onChange={this.handleInputChange}
-          value={this.state.name}
+          value={this.state.text}
         />
         <input
           type="number"
           onChange={this.handleInputChange}
-          value={this.state.age}
+          value={this.state.number}
         />
         <input
           type="email"
