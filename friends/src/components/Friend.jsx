@@ -7,8 +7,7 @@ export default function Friend(props) {
   const { friend } = props;
   return (
     <StyledFriend>
-      {" "}
-      {friend.name} &nbsp; {friend.email}{" "}
+      {friend.name} &nbsp; {friend.email} &nbsp; {friend.age}
     </StyledFriend>
   );
 }
