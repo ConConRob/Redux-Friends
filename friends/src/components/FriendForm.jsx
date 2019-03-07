@@ -21,7 +21,6 @@ export default class FriendForm extends React.Component {
       age: this.state.number,
       email: this.state.email
     };
-    console.log(person);
     this.props.submitFunction(person);
     this.setState({ text: "", number: "", email: "" });
   };

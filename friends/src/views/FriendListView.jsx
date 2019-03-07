@@ -10,6 +10,7 @@ import {
 
 import FriendList from "../components/FriendList";
 import FriendForm from "../components/FriendForm";
+import LoginForm from "../components/LoginForm";
 
 const StyledContainer = styled.div``;
 export class FriendListView extends React.Component {
@@ -20,28 +21,37 @@ export class FriendListView extends React.Component {
       this.props.getFriendsAsyc();
     }
   }
-
+  login = () => {
+    this.props.login(
+      this.props.form.login.values.username,
+      this.props.form.login.values.password,
+      this.updateComponent
+    );
+  };
+  logout = () => {
+    axios.defaults.headers.common["Authorization"] = "";
+    localStorage.removeItem("userToken");
+    this.updateComponent();
+  };
+  updateComponent = () => {
+    this.forceUpdate();
+  };
   render() {
     const isLoggedIn = !!localStorage.getItem("userToken");
     return (
       <StyledContainer>
         {isLoggedIn ? (
           <>
+            <button onClick={this.logout}>Logout</button>
             <FriendForm submitFunction={this.props.addFriendAsync} />
-            <FriendList friends={this.props.friendReducer.friends} />
+            <FriendList
+              friends={this.props.friendReducer.friends}
+              getFriendsAsyc={this.props.getFriendsAsyc}
+            />
           </>
         ) : (
           <>
-            <button
-              onClick={() => {
-                const updateComponent = () => {
-                  this.forceUpdate();
-                };
-                this.props.login("Lambda School", "i<3Lambd4", updateComponent);
-              }}
-            >
-              LOGIN
-            </button>
+            <LoginForm login={this.login} />
           </>
         )}
       </StyledContainer>

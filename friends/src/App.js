@@ -6,8 +6,9 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { friendReducer } from "./reducers/index";
 import saveUserToken from "./middleware/saveUserToken";
+import { reducer as formReducer } from 'redux-form'
 
-const rootReducers = combineReducers({ friendReducer });
+const rootReducers = combineReducers({ friendReducer, form: formReducer });
 
 const store = createStore(
   rootReducers,
