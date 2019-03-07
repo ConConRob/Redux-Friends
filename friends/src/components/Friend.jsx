@@ -5,11 +5,15 @@ const StyledFriend = styled.li`
   display: flex;
   justify-content: space-between;
   margin-left: 0;
+  margin-top: 10px;
   span {
+    width: 200px;
+  }
+  .age {
     width: 100px;
   }
-  .email {
-    width: 200px;
+  .edit-button {
+    margin-right: 10px;
   }
 `;
 
@@ -19,9 +23,13 @@ export default function Friend(props) {
     <StyledFriend>
       <span className="name">{friend.name}</span>{" "}
       <span className="email">{friend.email}</span>
-      <span>{friend.age} years old</span>
-      <button onClick={() => editFriend(friend.id)}>edit</button>
-      <button onClick={() => deleteFriend(friend.id)}>delete</button>
+      <span className="age">{friend.age} years old</span>
+      <div>
+        <button className="edit-button" onClick={() => editFriend(friend.id)}>
+          edit
+        </button>
+        <button onClick={() => deleteFriend(friend.id)}>delete</button>
+      </div>
     </StyledFriend>
   );
 }
