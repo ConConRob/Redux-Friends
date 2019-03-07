@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 
 import {
   getFriendsAsyc,
-  addFriendAsync
+  addFriendAsync,
+  login
 } from "../actionCreators/actionCreators";
 
 import FriendList from "../components/FriendList";
@@ -21,6 +22,9 @@ export class FriendListView extends React.Component {
       <StyledContainer>
         <FriendForm submitFunction={this.props.addFriendAsync} />
         <FriendList friends={this.props.friendReducer.friends} />
+        <button onClick={() => this.props.login("Lambda School", "i<3Lambd4")}>
+          LOGIN
+        </button>
       </StyledContainer>
     );
   }
@@ -32,5 +36,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getFriendsAsyc, addFriendAsync }
+  { getFriendsAsyc, addFriendAsync, login }
 )(FriendListView);
