@@ -5,6 +5,7 @@ import axios from "axios";
 import {
   getFriendsAsyc,
   addFriendAsync,
+  editFriendAsync,
   login
 } from "../actionCreators/actionCreators";
 
@@ -14,13 +15,9 @@ import LoginForm from "../components/LoginForm";
 
 const StyledContainer = styled.div``;
 export class FriendListView extends React.Component {
-  componentDidMount() {
-    const userToken = localStorage.getItem("userToken");
-    if (userToken) {
-      axios.defaults.headers.common["Authorization"] = userToken;
-      this.props.getFriendsAsyc();
-    }
-  }
+  state = {
+    editID: 1
+  };
   login = () => {
     this.props.login(
       this.props.form.login.values.username,
@@ -33,27 +30,32 @@ export class FriendListView extends React.Component {
     localStorage.removeItem("userToken");
     this.updateComponent();
   };
+  editFriend = person => {
+    this.props.editFriendAsync(this.state.editID, person);
+    this.setState({ editID: null });
+  };
   updateComponent = () => {
     this.forceUpdate();
   };
   render() {
+    console.log(this.props);
     const isLoggedIn = !!localStorage.getItem("userToken");
+    if (!isLoggedIn) {
+      return <LoginForm login={this.login} />;
+    }
     return (
       <StyledContainer>
-        {isLoggedIn ? (
-          <>
-            <button onClick={this.logout}>Logout</button>
-            <FriendForm submitFunction={this.props.addFriendAsync} />
-            <FriendList
-              friends={this.props.friendReducer.friends}
-              getFriendsAsyc={this.props.getFriendsAsyc}
-            />
-          </>
+        <button onClick={this.logout}>Logout</button>
+
+        {!!this.state.editID ? (
+          <FriendForm title="Edit" submitFunction={this.editFriend} />
         ) : (
-          <>
-            <LoginForm login={this.login} />
-          </>
+          <FriendForm title="Add" submitFunction={this.props.addFriendAsync} />
         )}
+        <FriendList
+          friends={this.props.friendReducer.friends}
+          getFriendsAsyc={this.props.getFriendsAsyc}
+        />
       </StyledContainer>
     );
   }
@@ -65,5 +67,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getFriendsAsyc, addFriendAsync, login }
+  { getFriendsAsyc, addFriendAsync, login, editFriendAsync }
 )(FriendListView);

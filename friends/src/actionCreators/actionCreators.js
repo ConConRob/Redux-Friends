@@ -35,3 +35,9 @@ export const addFriendAsync = (friend) => dispatch => {
     });
 }
 
+export const editFriendAsync = (id, editedFriend) => dispatch => {
+  axios.put(`${url}friends/${id}`, editedFriend)
+    .then(res=> {
+      dispatch({type:types.ADD_FRIENDS, payload: res.data})
+    })
+}

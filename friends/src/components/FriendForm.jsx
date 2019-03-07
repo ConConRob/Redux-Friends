@@ -27,7 +27,7 @@ export default class FriendForm extends React.Component {
   render() {
     return (
       <StyledFriendForm onSubmit={this.submit}>
-        <h3>Add a Friend</h3>
+        <h3>{`${this.props.title} a Friend`}</h3>
         <input
           type="text"
           onChange={this.handleInputChange}
