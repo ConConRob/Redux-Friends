@@ -14,7 +14,14 @@ import FriendList from "../components/FriendList";
 import FriendForm from "../components/FriendForm";
 import LoginForm from "../components/LoginForm";
 
-const StyledContainer = styled.div``;
+const StyledContainer = styled.div`
+  .logout-button {
+    float: right;
+  }
+  form {
+    width: 100%;
+  }
+`;
 export class FriendListView extends React.Component {
   state = {
     editID: null,
@@ -48,14 +55,15 @@ export class FriendListView extends React.Component {
     this.forceUpdate();
   };
   render() {
-    console.log(this.props);
     const isLoggedIn = !!localStorage.getItem("userToken");
     if (!isLoggedIn) {
       return <LoginForm login={this.login} />;
     }
     return (
       <StyledContainer>
-        <button onClick={this.logout}>Logout</button>
+        <button className="logout-button" onClick={this.logout}>
+          Logout
+        </button>
 
         {!!this.state.editID ? (
           <FriendForm

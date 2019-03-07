@@ -3,7 +3,9 @@ import styled from "styled-components";
 import axios from "axios";
 import Friend from "./Friend";
 
-const StyledFriendList = styled.ul``;
+const StyledFriendList = styled.ul`
+  padding-left: 0;
+`;
 
 export default class FriendList extends Component {
   componentDidMount() {

@@ -19,7 +19,7 @@ const store = createStore(
 );
 
 const StyledApp = styled.div`
-  width: 500px;
+  width: 700px;
   margin: 50px auto;
 `;
 

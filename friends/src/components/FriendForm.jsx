@@ -1,7 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledFriendForm = styled.form``;
+const StyledFriendForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  input {
+    padding: 6px;
+    margin: 10px 0;
+  }
+  button {
+    padding: 6px;
+    margin: 10px 0;
+  }
+`;
 export default class FriendForm extends React.Component {
   constructor(props) {
     super(props);
