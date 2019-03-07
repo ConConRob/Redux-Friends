@@ -2,16 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import FriendListView from "./views/FriendListView";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { friendReducer } from "./reducers/index";
-import saveUserToken from './middleware/saveUserToken';
+import saveUserToken from "./middleware/saveUserToken";
 
 const rootReducers = combineReducers({ friendReducer });
 
@@ -31,13 +25,11 @@ const StyledApp = styled.div`
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Provider store={store}>
-          <StyledApp>
-            <FriendListView />
-          </StyledApp>
-        </Provider>
-      </Router>
+      <Provider store={store}>
+        <StyledApp>
+          <FriendListView />
+        </StyledApp>
+      </Provider>
     );
   }
 }

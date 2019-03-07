@@ -1,14 +1,14 @@
 import * as types from "./actionTypes";
 import axios from "axios";
 const url = "http://localhost:5000/api/";
-const token = "eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ";
-axios.defaults.headers.common['Authorization'] = token;
 
-export const login = (username, password) => dispatch => {
+
+export const login = (username, password, cb=()=>{}) => dispatch => {
   axios.post(`${url}login`, {username, password})
     .then(res => {
       console.log(res.data)
       dispatch({type: types.SUCCESSFUL_LOGIN, payload: res.data.payload })
+      cb();
     });
 }
 

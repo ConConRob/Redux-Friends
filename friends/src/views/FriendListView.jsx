@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
+import axios from "axios";
 import {
   getFriendsAsyc,
   addFriendAsync,
@@ -14,17 +14,36 @@ import FriendForm from "../components/FriendForm";
 const StyledContainer = styled.div``;
 export class FriendListView extends React.Component {
   componentDidMount() {
-    this.props.getFriendsAsyc();
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) {
+      axios.defaults.headers.common["Authorization"] = userToken;
+      this.props.getFriendsAsyc();
+    }
   }
 
   render() {
+    const isLoggedIn = !!localStorage.getItem("userToken");
     return (
       <StyledContainer>
-        <FriendForm submitFunction={this.props.addFriendAsync} />
-        <FriendList friends={this.props.friendReducer.friends} />
-        <button onClick={() => this.props.login("Lambda School", "i<3Lambd4")}>
-          LOGIN
-        </button>
+        {isLoggedIn ? (
+          <>
+            <FriendForm submitFunction={this.props.addFriendAsync} />
+            <FriendList friends={this.props.friendReducer.friends} />
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                const updateComponent = () => {
+                  this.forceUpdate();
+                };
+                this.props.login("Lambda School", "i<3Lambd4", updateComponent);
+              }}
+            >
+              LOGIN
+            </button>
+          </>
+        )}
       </StyledContainer>
     );
   }
