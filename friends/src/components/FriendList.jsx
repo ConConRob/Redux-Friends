@@ -17,7 +17,11 @@ export default class FriendList extends Component {
     return (
       <StyledFriendList>
         {this.props.friends.map(friend => (
-          <Friend key={friend.id} friend={friend} />
+          <Friend
+            key={friend.id}
+            friend={friend}
+            editFriend={this.props.editFriend}
+          />
         ))}
       </StyledFriendList>
     );

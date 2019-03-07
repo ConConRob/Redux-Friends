@@ -16,7 +16,8 @@ import LoginForm from "../components/LoginForm";
 const StyledContainer = styled.div``;
 export class FriendListView extends React.Component {
   state = {
-    editID: 1
+    editID: null,
+    editFriend: null
   };
   login = () => {
     this.props.login(
@@ -34,6 +35,14 @@ export class FriendListView extends React.Component {
     this.props.editFriendAsync(this.state.editID, person);
     this.setState({ editID: null });
   };
+  setEditFriend = id => {
+    this.setState({ editID: id });
+    const friendIndex = this.props.friendReducer.friends.findIndex(
+      f => f.id == id
+    );
+    const friend = this.props.friendReducer.friends[friendIndex];
+    this.setState({ editFriend: friend });
+  };
   updateComponent = () => {
     this.forceUpdate();
   };
@@ -48,11 +57,16 @@ export class FriendListView extends React.Component {
         <button onClick={this.logout}>Logout</button>
 
         {!!this.state.editID ? (
-          <FriendForm title="Edit" submitFunction={this.editFriend} />
+          <FriendForm
+            title="Edit"
+            friend={this.state.editFriend}
+            submitFunction={this.editFriend}
+          />
         ) : (
           <FriendForm title="Add" submitFunction={this.props.addFriendAsync} />
         )}
         <FriendList
+          editFriend={this.setEditFriend}
           friends={this.props.friendReducer.friends}
           getFriendsAsyc={this.props.getFriendsAsyc}
         />
