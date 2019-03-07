@@ -21,6 +21,7 @@ export default class FriendList extends Component {
             key={friend.id}
             friend={friend}
             editFriend={this.props.editFriend}
+            deleteFriend={this.props.deleteFriend}
           />
         ))}
       </StyledFriendList>

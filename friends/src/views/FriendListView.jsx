@@ -6,6 +6,7 @@ import {
   getFriendsAsyc,
   addFriendAsync,
   editFriendAsync,
+  deleteFriendAsync,
   login
 } from "../actionCreators/actionCreators";
 
@@ -69,6 +70,7 @@ export class FriendListView extends React.Component {
           editFriend={this.setEditFriend}
           friends={this.props.friendReducer.friends}
           getFriendsAsyc={this.props.getFriendsAsyc}
+          deleteFriend={this.props.deleteFriendAsync}
         />
       </StyledContainer>
     );
@@ -81,5 +83,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getFriendsAsyc, addFriendAsync, login, editFriendAsync }
+  { getFriendsAsyc, addFriendAsync, login, editFriendAsync, deleteFriendAsync }
 )(FriendListView);
