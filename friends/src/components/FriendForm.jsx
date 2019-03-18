@@ -1,15 +1,51 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledFriendForm = styled.form``;
+const StyledFriendForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  input {
+    padding: 6px;
+    margin: 10px 0;
+  }
+  button {
+    padding: 6px;
+    margin: 10px 0;
+  }
+`;
 export default class FriendForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       text: "",
       number: "",
-      email: ""
+      email: "",
+      id: null
     };
+  }
+  componentDidMount() {
+    const friend = this.props.friend;
+    if (friend) {
+      this.setState({
+        text: friend.name,
+        number: friend.age,
+        email: friend.email
+      });
+    }
+  }
+  componentDidUpdate() {
+    const friend = this.props.friend;
+    if (friend) {
+      console.log(friend.name);
+      if (friend.id !== this.state.id) {
+        this.setState({
+          text: friend.name,
+          number: friend.age,
+          email: friend.email,
+          id: friend.id
+        });
+      }
+    }
   }
   handleInputChange = event => {
     this.setState({ [event.target.type]: event.target.value });
@@ -21,14 +57,13 @@ export default class FriendForm extends React.Component {
       age: this.state.number,
       email: this.state.email
     };
-    console.log(person);
     this.props.submitFunction(person);
     this.setState({ text: "", number: "", email: "" });
   };
   render() {
     return (
       <StyledFriendForm onSubmit={this.submit}>
-        <h3>Add a Friend</h3>
+        <h3>{`${this.props.title} a Friend`}</h3>
         <input
           type="text"
           onChange={this.handleInputChange}
@@ -47,7 +82,7 @@ export default class FriendForm extends React.Component {
           value={this.state.email}
           placeholder="email"
         />
-        <button type="submit">ADD</button>
+        <button type="submit">{this.props.title}</button>
       </StyledFriendForm>
     );
   }
